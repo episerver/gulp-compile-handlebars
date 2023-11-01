@@ -1,4 +1,4 @@
-var gutil = require('gulp-util');
+var PluginError = require('plugin-error');
 var through = require('through2');
 var Handlebars = require('handlebars');
 var fs = require('fs');
@@ -114,7 +114,7 @@ function handlebars(data, opts) {
 		}
 
 		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-compile-handlebars', 'Streaming not supported'));
+			this.emit('error', new PluginError('gulp-compile-handlebars', 'Streaming not supported'));
 			return cb();
 		}
 
@@ -129,9 +129,9 @@ function handlebars(data, opts) {
 				_data = extend(_data, file.data);
 			}
 			var template = hb.compile(fileContents, options.compile);
-			file.contents = new Buffer(template(_data));
+			file.contents = Buffer.from(template(_data));
 		} catch (err) {
-			this.emit('error', new gutil.PluginError('gulp-compile-handlebars', err));
+			this.emit('error', new PluginError('gulp-compile-handlebars', err));
 		}
 
 		this.push(file);

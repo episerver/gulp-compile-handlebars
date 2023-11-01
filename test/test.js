@@ -1,6 +1,6 @@
 'use strict';
 var assert = require('assert');
-var gutil = require('gulp-util');
+var Vinyl = require('vinyl');
 var template = require('../index');
 
 it('should compile Handlebars templates', function (cb) {
@@ -19,8 +19,8 @@ it('should compile Handlebars templates', function (cb) {
 		cb();
 	});
 
-	stream.write(new gutil.File({
-		contents: new Buffer('{{> header}}{{#each people}}<li>{{.}}</li>{{/each}} {{toLower message}}')
+	stream.write(new Vinyl({
+		contents: Buffer.from('{{> header}}{{#each people}}<li>{{.}}</li>{{/each}} {{toLower message}}')
 	}));
 
 	stream.end();
@@ -42,8 +42,8 @@ it('should compile Handlebars templates, and ignore unknown partials', function 
 		cb();
 	});
 
-	stream.write(new gutil.File({
-		contents: new Buffer('{{> header}}{{#each people}}<li>{{.}}</li>{{/each}} {{toLower message}}')
+	stream.write(new Vinyl({
+		contents: Buffer.from('{{> header}}{{#each people}}<li>{{.}}</li>{{/each}} {{toLower message}}')
 	}));
 
 	stream.end();
@@ -57,8 +57,8 @@ it('should compile Handlebars templates, and use batched partials', function (cb
 		cb();
 	});
 
-	stream.write(new gutil.File({
-		contents: new Buffer('{{> header-test}}')
+	stream.write(new Vinyl({
+		contents: Buffer.from('{{> header-test}}')
 	}));
 
 	stream.end();
@@ -72,8 +72,8 @@ it('should compile Handlebars templates, and use batched NESTED partials', funct
 		cb();
 	});
 
-	stream.write(new gutil.File({
-		contents: new Buffer('{{> mobile/header-test}}')
+	stream.write(new Vinyl({
+		contents: Buffer.from('{{> mobile/header-test}}')
 	}));
 
 	stream.end();
@@ -87,8 +87,8 @@ it('should compile Handlebars templates, and use multiple batched NESTED partial
 		cb();
 	});
 
-	stream.write(new gutil.File({
-		contents: new Buffer('{{> desktop/header-test}}')
+	stream.write(new Vinyl({
+		contents: Buffer.from('{{> desktop/header-test}}')
 	}));
 
 	stream.end();
@@ -103,8 +103,8 @@ it('should compile Handlebars templates with no helpers or partials', function (
 		cb();
 	});
 
-	stream.write(new gutil.File({
-		contents: new Buffer('{{#each people}}<li>{{.}}</li>{{/each}}')
+	stream.write(new Vinyl({
+		contents: Buffer.from('{{#each people}}<li>{{.}}</li>{{/each}}')
 	}));
 
 	stream.end();
@@ -119,8 +119,8 @@ it('should use file.data if available', function (cb) {
 		cb();
 	});
 
-	var file = new gutil.File({
-		contents: new Buffer('<div>{{foo}} {{bar}}</div>')
+	var file = new Vinyl({
+		contents: Buffer.from('<div>{{foo}} {{bar}}</div>')
 	});
 	file.data = { bar: 'BAZ' };
 
@@ -138,8 +138,8 @@ it('should not require a default data object', function (cb) {
 		cb();
 	});
 
-	var file = new gutil.File({
-		contents: new Buffer('<div>{{foo}}</div>')
+	var file = new Vinyl({
+		contents: Buffer.from('<div>{{foo}}</div>')
 	});
 	file.data = { foo: 'BAZ' };
 

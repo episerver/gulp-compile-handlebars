@@ -1,6 +1,6 @@
 {
-  "name": "gulp-compile-handlebars",
-  "version": "0.6.0",
+  "name": "@episerver/gulp-compile-handlebars",
+  "version": "0.0.2",
   "description": "Compile Handlebars templates to file - gulp plugin",
   "license": "MIT",
   "repository": "kaanon/gulp-compile-handlebars",
@@ -28,11 +28,12 @@
     "rendering"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.3",
-    "through2": "^0.6.3",
-    "handlebars": ">=3.0.0"
+    "handlebars": ">=3.0.0",
+    "plugin-error": "^2.0.1",
+    "through2": "^0.6.3"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "vinyl": "^3.0.0"
   }
 }
